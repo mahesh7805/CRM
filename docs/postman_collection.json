@@ -1,0 +1,191 @@
+{
+  "info": {
+    "name": "Mini ERP + CRM Portal REST APIs",
+    "description": "Complete Postman Collection for full testing of Auth, Customer CRM, Products, Stock Movements, Sales Challans, CRM Follow-ups, User Governance, and Financial Reports",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{authToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "item": [
+    {
+      "name": "1. Authentication",
+      "item": [
+        {
+          "name": "Login (Admin Role)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData.token) {",
+                  "    pm.collectionVariables.set('authToken', jsonData.token);",
+                  "    pm.globals.set('authToken', jsonData.token);",
+                  "    try { pm.environment.set('authToken', jsonData.token); } catch(e) {}",
+                  "    console.log('Saved token to collectionVariables & globals:', jsonData.token);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@fundsroom.com\",\n  \"password\": \"admin123\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/auth/login", "host": ["{{baseUrl}}"], "path": ["auth", "login"] }
+          }
+        },
+        {
+          "name": "Login (Sales Role)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData.token) {",
+                  "    pm.collectionVariables.set('authToken', jsonData.token);",
+                  "    pm.globals.set('authToken', jsonData.token);",
+                  "    try { pm.environment.set('authToken', jsonData.token); } catch(e) {}",
+                  "    console.log('Saved token to collectionVariables & globals:', jsonData.token);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"sales@fundsroom.com\",\n  \"password\": \"sales123\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/auth/login", "host": ["{{baseUrl}}"], "path": ["auth", "login"] }
+          }
+        },
+        {
+          "name": "Get Current Session Profile",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/auth/me", "host": ["{{baseUrl}}"], "path": ["auth", "me"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Customer CRM",
+      "item": [
+        {
+          "name": "Get Customers List",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/customers?page=1&limit=10", "host": ["{{baseUrl}}"], "path": ["customers"] }
+          }
+        },
+        {
+          "name": "Create Customer Account",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Suresh Patel\",\n  \"mobile\": \"+91 98980 11223\",\n  \"email\": \"suresh@patelind.com\",\n  \"businessName\": \"Patel Industrial Supplies\",\n  \"gstNumber\": \"27AAAAA1234A1Z5\",\n  \"customerType\": \"WHOLESALE\",\n  \"address\": \"MIDC Andheri East, Mumbai\",\n  \"status\": \"LEAD\",\n  \"notes\": \"Interested in heavy duty fasteners\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/customers", "host": ["{{baseUrl}}"], "path": ["customers"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Products & Stock",
+      "item": [
+        {
+          "name": "Get Products Catalog",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/products", "host": ["{{baseUrl}}"], "path": ["products"] }
+          }
+        },
+        {
+          "name": "Manual Stock Adjustment (Restock)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"productId\": \"replace-with-product-id\",\n  \"quantity\": 25,\n  \"movementType\": \"IN\",\n  \"reason\": \"Supplier Container #9901 Restock\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/inventory/adjust", "host": ["{{baseUrl}}"], "path": ["inventory", "adjust"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. Sales Delivery Challans",
+      "item": [
+        {
+          "name": "Get Challans List",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/challans", "host": ["{{baseUrl}}"], "path": ["challans"] }
+          }
+        },
+        {
+          "name": "Create Draft Challan",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customerId\": \"replace-with-customer-id\",\n  \"status\": \"DRAFT\",\n  \"notes\": \"Dispatch via GATI LR #889102\",\n  \"items\": [\n    { \"productId\": \"replace-with-product-id\", \"quantity\": 2 }\n  ]\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/challans", "host": ["{{baseUrl}}"], "path": ["challans"] }
+          }
+        },
+        {
+          "name": "Confirm Challan & Deduct Stock",
+          "request": {
+            "method": "POST",
+            "url": { "raw": "{{baseUrl}}/challans/replace-with-challan-id/confirm", "host": ["{{baseUrl}}"], "path": ["challans", "replace-with-challan-id", "confirm"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "5. Reports & Analytics",
+      "item": [
+        {
+          "name": "Get Inventory Valuation Report",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/reports/inventory", "host": ["{{baseUrl}}"], "path": ["reports", "inventory"] }
+          }
+        },
+        {
+          "name": "Get Challan Sales Summary Report",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/reports/challans", "host": ["{{baseUrl}}"], "path": ["reports", "challans"] }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:5000/api" },
+    { "key": "authToken", "value": "" }
+  ]
+}

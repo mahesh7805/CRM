@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  }
+}
+
+/* Custom Light Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(241, 245, 249, 0.8);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(203, 213, 225, 0.8);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.9);
+}
+
+/* Light Glassmorphism Design System */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.04), 0 8px 10px -6px rgba(15, 23, 42, 0.02);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -2px rgba(0, 0, 0, 0.02);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card:hover {
+  border-color: rgba(59, 130, 246, 0.4);
+  box-shadow: 0 12px 24px -6px rgba(37, 99, 235, 0.08);
+  transform: translateY(-1px);
+}
+
+/* Status Badges */
+.badge {
+  @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold tracking-wide;
+}
+
+.badge-lead {
+  @apply bg-amber-50 text-amber-700 border border-amber-200;
+}
+
+.badge-active {
+  @apply bg-emerald-50 text-emerald-700 border border-emerald-200;
+}
+
+.badge-inactive {
+  @apply bg-slate-100 text-slate-600 border border-slate-200;
+}
+
+.badge-in-stock {
+  @apply bg-emerald-50 text-emerald-700 border border-emerald-200;
+}
+
+.badge-low-stock {
+  @apply bg-amber-50 text-amber-700 border border-amber-200 animate-pulse;
+}
+
+.badge-out-of-stock {
+  @apply bg-rose-50 text-rose-700 border border-rose-200;
+}
+
+.badge-draft {
+  @apply bg-sky-50 text-sky-700 border border-sky-200;
+}
+
+.badge-confirmed {
+  @apply bg-emerald-50 text-emerald-700 border border-emerald-200;
+}
+
+.badge-cancelled {
+  @apply bg-rose-50 text-rose-700 border border-rose-200;
+}
+
+.badge-in {
+  @apply bg-emerald-50 text-emerald-700 border border-emerald-200;
+}
+
+.badge-out {
+  @apply bg-indigo-50 text-indigo-700 border border-indigo-200;
+}
