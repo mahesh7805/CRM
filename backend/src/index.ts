@@ -39,3 +39,6 @@ app.use(errorHandler);
 app.listen(PORT, () => {
   console.log(`🚀 Mini ERP Backend Server active on http://localhost:${PORT}`);
 });
+
+export default app;
+
