@@ -16,6 +16,9 @@ const router = Router();
 // ==========================================
 // 1. AUTHENTICATION ROUTES (Public & Auth)
 // ==========================================
+router.get('/health', (req, res) => {
+  res.json({ status: 'OK', message: 'Mini ERP + CRM API Server Running', timestamp: new Date() });
+});
 router.post('/auth/login', authController.login);
 router.get('/auth/me', authenticateJwt, authController.getMe);
 
