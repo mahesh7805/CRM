@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: fundsroom-backend
+    runtime: node
+    rootDir: backend
+    buildCommand: npm install && npm run prisma:generate && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        value: super_secret_jwt_key_mini_erp_crm_2026_fundsroom
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: DATABASE_URL
+        sync: false
+      - key: DIRECT_URL
+        sync: false
